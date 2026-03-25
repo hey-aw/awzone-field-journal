@@ -8,7 +8,7 @@ const ORDERED_NODES: FlowNode[] = [
   "analyze",
   "brainstorm",
   "outline",
-  "draft",
+  "write",
   "critique",
   "finalize",
 ];
@@ -69,7 +69,7 @@ export function StepTrack({ activeNode, completedNodes, refineCount }: StepTrack
                 )}
               >
                 {NODE_LABELS[node]}
-                {node === "draft" && refineCount > 1 && (
+                {node === "write" && refineCount > 1 && (
                   <span className="ml-2 text-xs text-amber-500">
                     refined ×{refineCount - 1}
                   </span>

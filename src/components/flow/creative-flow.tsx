@@ -49,7 +49,7 @@ export function CreativeFlow() {
           if (event.node) {
             setActiveNode(event.node);
             updateStep(event.node, { node: event.node, text: "", thinking: "", done: false });
-            if (event.node === "draft") {
+            if (event.node === "write") {
               setRefineCount((c) => c + 1);
             }
           }

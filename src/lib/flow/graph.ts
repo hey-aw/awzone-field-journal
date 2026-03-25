@@ -197,7 +197,7 @@ ${state.angles}`,
 
 async function draftNode(state: FlowState, config: any): Promise<Partial<FlowState>> {
   const push: PushFn = config?.configurable?.push ?? (() => {});
-  push({ type: "node_start", node: "draft" });
+  push({ type: "node_start", node: "write" });
 
   const refinementContext =
     state.refineCount > 0 && state.critiqueNotes
@@ -205,7 +205,7 @@ async function draftNode(state: FlowState, config: any): Promise<Partial<FlowSta
       : "";
 
   const draft = await streamCall({
-    nodeName: "draft",
+    nodeName: "write",
     push,
     thinking: true,
     maxTokens: 32000,
@@ -233,7 +233,7 @@ Angles to draw from:
 ${state.angles}`,
   });
 
-  push({ type: "node_complete", node: "draft" });
+  push({ type: "node_complete", node: "write" });
   return { draft, refineCount: state.refineCount + 1 };
 }
 
@@ -287,9 +287,9 @@ ${state.draft}`,
 
 // ─── Conditional edge: refine or finalize ─────────────────────────────────────
 
-function shouldRefine(state: FlowState): "draft" | "finalize" {
+function shouldRefine(state: FlowState): "write" | "finalize" {
   if (state.refineCount < 2 && state.critiqueScore < 7) {
-    return "draft";
+    return "write";
   }
   return "finalize";
 }
@@ -351,16 +351,16 @@ const workflow = new StateGraph(FlowStateAnnotation)
   .addNode("analyze", analyzeNode)
   .addNode("brainstorm", brainstormNode)
   .addNode("outline", structureNode)
-  .addNode("draft", draftNode)
+  .addNode("write", draftNode)
   .addNode("critique", critiqueNode)
   .addNode("finalize", finalizeNode)
   .addEdge(START, "analyze")
   .addEdge("analyze", "brainstorm")
   .addEdge("brainstorm", "outline")
-  .addEdge("outline", "draft")
-  .addEdge("draft", "critique")
+  .addEdge("outline", "write")
+  .addEdge("write", "critique")
   .addConditionalEdges("critique", shouldRefine, {
-    draft: "draft",
+    write: "write",
     finalize: "finalize",
   })
   .addEdge("finalize", END);
