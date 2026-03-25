@@ -23,7 +23,7 @@ export function SiteNav() {
         href="/"
         className="text-sm font-semibold tracking-tight hover:opacity-70 transition-opacity"
       >
-        AWZone Field Journal
+        AWzone
       </Link>
       <div className="flex items-center gap-1">
         <div className="hidden sm:flex items-center mr-2">

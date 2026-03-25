@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 const PROJECTS = [
   {
     status: "Active",
-    title: "AWZone Field Journal",
+    title: "AWzone",
     type: "Site / public notebook",
     description:
       "This site. A public lab notebook built on Next.js, Neon Postgres, and Drizzle ORM. Designed as a thinking tool first, public trail second.",

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const PLACEHOLDER_EXPERIMENTS = [
   {
     status: "Active",
-    title: "AWZone Field Journal",
+    title: "AWzone",
     question: "What does it look like to build and think in public?",
     description:
       "Setting up a public lab notebook as both a thinking tool and a trail of work. Testing cadence, format, and what's worth sharing.",

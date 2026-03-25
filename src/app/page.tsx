@@ -41,7 +41,7 @@ export default function Home() {
               Field Journal
             </p>
             <h1 className="mb-5 text-3xl font-semibold leading-tight tracking-tight md:text-4xl">
-              Matthew Anthes-Washburn
+              Matt &ldquo;AW&rdquo; Anthes-Washburn
             </h1>
             <p className="mb-6 text-lg leading-relaxed text-muted-foreground md:text-xl">
               Experiments in AI, learning, product design, and building useful
@@ -167,7 +167,7 @@ export default function Home() {
 
         <footer className="border-t border-border py-8 text-sm text-muted-foreground">
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <span>Matthew Anthes-Washburn</span>
+            <span>Matt &ldquo;AW&rdquo; Anthes-Washburn</span>
             <div className="flex items-center gap-6">
               <Link href="/about" className="hover:text-foreground transition-colors">
                 About
