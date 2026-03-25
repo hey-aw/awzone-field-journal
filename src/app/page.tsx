@@ -1,88 +1,182 @@
-import Image from "next/image";
 import Link from "next/link";
-import { NavBar } from "@/components/navbar";
-import { checkDbConnection } from "@/lib/db/client";
+import { SiteNav } from "@/components/site-nav";
 
-export default async function Home() {
-  const result = await checkDbConnection();
+const CONTENT_PILLARS = [
+  {
+    name: "Build Notes",
+    href: "/notes?pillar=build-notes",
+    description:
+      "What I'm making right now — prototypes, workflow tools, product decisions, and lessons from shipping.",
+  },
+  {
+    name: "Experiments",
+    href: "/experiments",
+    description:
+      "Small tests with a question behind them. What happens when I try this instead of that?",
+  },
+  {
+    name: "Field Reflections",
+    href: "/notes?pillar=field-reflections",
+    description:
+      "What I'm noticing in work, teaching, and product strategy. Where tools create leverage and where they don't.",
+  },
+  {
+    name: "Resources & Playbooks",
+    href: "/notes?pillar=resources",
+    description:
+      "Useful, reusable pieces — checklists, templates, prompt packs, workshop recipes, and annotated links.",
+  },
+];
+
+export default function Home() {
   return (
     <div className="flex min-h-screen flex-col">
-      <div className="mx-auto flex w-full max-w-md flex-1 flex-col px-5 md:max-w-lg md:px-0 lg:max-w-xl">
-        <NavBar />
-        <main className="flex flex-1 flex-col justify-center">
-          <h1 className="text-3xl font-semibold leading-none tracking-tighter md:text-4xl md:leading-none lg:text-5xl lg:leading-none">
-            Vercel with Neon Postgres
-          </h1>
-          <p className="mt-3.5 max-w-lg text-base leading-snug tracking-tight text-[#61646B] md:text-lg md:leading-snug lg:text-xl lg:leading-snug dark:text-[#94979E]">
-            A minimal template for building full-stack React applications using
-            Next.js, Vercel, and Neon.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center gap-5 md:mt-9 lg:mt-10">
-            <Link
-              className="rounded-full bg-[#00E599] px-5 py-2.5 font-semibold tracking-tight text-[#0C0D0D] transition-colors duration-200 hover:bg-[#00E5BF] lg:px-7 lg:py-3"
-              href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fneondatabase-labs%2Fvercel-marketplace-neon%2Ftree%2Fmain&project-name=my-vercel-neon-app&repository-name=my-vercel-neon-app&products=[{%22type%22:%22integration%22,%22integrationSlug%22:%22neon%22,%22productSlug%22:%22neon%22,%22protocol%22:%22storage%22}]"
-              target="_blank"
-            >
-              Deploy to Vercel
-            </Link>
-            <Link
-              className="group flex items-center gap-2 leading-none tracking-tight"
-              href="https://github.com/neondatabase-labs/vercel-marketplace-neon"
-              target="_blank"
-            >
-              View on GitHub
-              <Image
-                className="transition-transform duration-200 group-hover:translate-x-1 dark:invert"
-                src="/arrow.svg"
-                alt="arrow"
-                width={16}
-                height={10}
-                priority
-              />
-            </Link>
-          </div>
-        </main>
-        <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-[#E4E5E7] py-5 sm:gap-2 sm:gap-6 md:pb-12 md:pt-10 dark:border-[#303236]">
-          <ul className="flex items-center gap-4 sm:gap-6">
-            {[
-              {
-                text: "Docs",
-                href: "https://neon.tech/docs/",
-                icon: "/docs.svg",
-              },
-              {
-                text: "Discord",
-                href: "https://discord.com/invite/92vNTzKDGp",
-                icon: "/discord.svg",
-              },
-            ].map((link) => (
+      <div className="mx-auto w-full max-w-2xl px-6 md:px-8">
+        <SiteNav />
+
+        <main className="py-16 md:py-20">
+          {/* Hero */}
+          <section className="mb-16">
+            <p className="mb-3 text-sm font-medium tracking-widest text-muted-foreground uppercase">
+              Field Journal
+            </p>
+            <h1 className="mb-5 text-3xl font-semibold leading-tight tracking-tight md:text-4xl">
+              Matthew Anthes-Washburn
+            </h1>
+            <p className="mb-6 text-lg leading-relaxed text-muted-foreground md:text-xl">
+              Experiments in AI, learning, product design, and building useful
+              things.
+            </p>
+            <p className="max-w-prose text-base leading-relaxed">
+              I use this site as a public notebook — a place to document what
+              I&apos;m building, testing, and learning along the way. Rough
+              notes, mid-stream updates, and the occasional finished reflection.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
               <Link
-                className="flex items-center gap-2 opacity-70 transition-opacity duration-200 hover:opacity-100"
-                key={link.text}
-                href={link.href}
-                target="_blank"
+                href="/notes"
+                className="inline-flex items-center rounded-md bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-80"
               >
-                <Image
-                  className="dark:invert"
-                  src={link.icon}
-                  alt={link.text}
-                  width={16}
-                  height={16}
-                  priority
-                />
-                <span className="text-sm tracking-tight">{link.text}</span>
+                Browse notes
               </Link>
-            ))}
-          </ul>
-          <span
-            className={`rounded-full border px-3 py-1.5 text-xs font-semibold ${
-              result === "Database connected"
-                ? "border-[#00E599]/20 bg-[#00E599]/10 text-[#1a8c66] dark:bg-[#00E599]/10 dark:text-[#00E599]"
-                : "border-red-500/20 bg-red-500/10 text-red-500 dark:text-red-500"
-            }`}
-          >
-            {result}
-          </span>
+              <Link
+                href="/now"
+                className="inline-flex items-center rounded-md border border-border px-5 py-2.5 text-sm font-medium transition-colors hover:bg-muted"
+              >
+                What I&apos;m doing now
+              </Link>
+            </div>
+          </section>
+
+          {/* Recent entries placeholder */}
+          <section className="mb-16">
+            <div className="mb-6 flex items-center justify-between">
+              <h2 className="text-lg font-semibold tracking-tight">
+                Recent notes
+              </h2>
+              <Link
+                href="/notes"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                All notes →
+              </Link>
+            </div>
+            <div className="space-y-px rounded-md border border-border overflow-hidden">
+              {[
+                {
+                  label: "Lab note",
+                  title: "Why I'm building this in public",
+                  date: "Coming soon",
+                  href: "/notes",
+                },
+                {
+                  label: "Experiment",
+                  title: "What I'm experimenting with right now",
+                  date: "Coming soon",
+                  href: "/experiments",
+                },
+                {
+                  label: "Field reflection",
+                  title: "A reflection on building for educators",
+                  date: "Coming soon",
+                  href: "/notes",
+                },
+              ].map((entry) => (
+                <Link
+                  key={entry.title}
+                  href={entry.href}
+                  className="flex items-start justify-between gap-4 bg-card px-5 py-4 transition-colors hover:bg-muted"
+                >
+                  <div>
+                    <p className="mb-0.5 text-xs font-medium tracking-wide text-muted-foreground uppercase">
+                      {entry.label}
+                    </p>
+                    <p className="text-sm font-medium leading-snug">
+                      {entry.title}
+                    </p>
+                  </div>
+                  <span className="shrink-0 text-xs text-muted-foreground pt-0.5">
+                    {entry.date}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </section>
+
+          {/* Content pillars */}
+          <section className="mb-16">
+            <h2 className="mb-6 text-lg font-semibold tracking-tight">
+              What&apos;s here
+            </h2>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {CONTENT_PILLARS.map((pillar) => (
+                <Link
+                  key={pillar.name}
+                  href={pillar.href}
+                  className="group rounded-md border border-border bg-card p-5 transition-colors hover:bg-muted"
+                >
+                  <p className="mb-2 text-sm font-semibold group-hover:underline">
+                    {pillar.name}
+                  </p>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {pillar.description}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </section>
+
+          {/* Now teaser */}
+          <section>
+            <div className="rounded-md border border-border bg-muted/40 px-6 py-5">
+              <p className="mb-1 text-xs font-medium tracking-widest text-muted-foreground uppercase">
+                Currently
+              </p>
+              <p className="text-sm leading-relaxed">
+                Setting up this public notebook. First posts incoming.{" "}
+                <Link
+                  href="/now"
+                  className="underline underline-offset-4 hover:text-muted-foreground transition-colors"
+                >
+                  Read the now page →
+                </Link>
+              </p>
+            </div>
+          </section>
+        </main>
+
+        <footer className="border-t border-border py-8 text-sm text-muted-foreground">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <span>Matthew Anthes-Washburn</span>
+            <div className="flex items-center gap-6">
+              <Link href="/about" className="hover:text-foreground transition-colors">
+                About
+              </Link>
+              <Link href="/now" className="hover:text-foreground transition-colors">
+                Now
+              </Link>
+            </div>
+          </div>
         </footer>
       </div>
     </div>

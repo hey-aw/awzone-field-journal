@@ -4,8 +4,12 @@ import "./globals.css";
 import { inter } from "./fonts";
 
 export const metadata: Metadata = {
-  title: "Vercel + Neon",
-  description: "Use Neon with Vercel",
+  title: {
+    default: "AWZone Field Journal",
+    template: "%s — AWZone Field Journal",
+  },
+  description:
+    "A public notebook for experiments, prototypes, and reflections at the intersection of learning, AI, and product design.",
 };
 
 export default function RootLayout({
