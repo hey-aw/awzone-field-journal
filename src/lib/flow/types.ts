@@ -1,7 +1,7 @@
 export type FlowNode =
   | "analyze"
   | "brainstorm"
-  | "structure"
+  | "outline"
   | "draft"
   | "critique"
   | "finalize";
@@ -31,7 +31,7 @@ export interface FinalOutput {
 export const NODE_LABELS: Record<FlowNode, string> = {
   analyze: "Analyze",
   brainstorm: "Brainstorm",
-  structure: "Structure",
+  outline: "Structure",
   draft: "Draft",
   critique: "Critique",
   finalize: "Finalize",
@@ -40,7 +40,7 @@ export const NODE_LABELS: Record<FlowNode, string> = {
 export const NODE_DESCRIPTIONS: Record<FlowNode, string> = {
   analyze: "Understanding the seed idea and its core question",
   brainstorm: "Generating angles, observations, and directions",
-  structure: "Building the post outline with sections",
+  outline: "Building the post outline with sections",
   draft: "Writing the full content with detail",
   critique: "Honest self-review — does this land?",
   finalize: "Polishing the title, excerpt, and metadata",

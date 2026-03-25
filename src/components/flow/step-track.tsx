@@ -7,7 +7,7 @@ import { NODE_LABELS, NODE_DESCRIPTIONS } from "@/lib/flow/types";
 const ORDERED_NODES: FlowNode[] = [
   "analyze",
   "brainstorm",
-  "structure",
+  "outline",
   "draft",
   "critique",
   "finalize",

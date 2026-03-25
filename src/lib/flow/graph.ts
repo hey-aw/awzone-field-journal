@@ -152,7 +152,7 @@ Analysis: ${state.analysis}`,
 
 async function structureNode(state: FlowState, config: any): Promise<Partial<FlowState>> {
   const push: PushFn = config?.configurable?.push ?? (() => {});
-  push({ type: "node_start", node: "structure" });
+  push({ type: "node_start", node: "outline" });
 
   const isFieldNote =
     state.postType === "lab-note" ||
@@ -172,7 +172,7 @@ async function structureNode(state: FlowState, config: any): Promise<Partial<Flo
 Include: a clear title, the central argument or purpose, 3-5 main sections with specific section names, a strong opening hook, and a takeaway/next step.`;
 
   const structure = await streamCall({
-    nodeName: "structure",
+    nodeName: "outline",
     push,
     maxTokens: 4096,
     system: `You are a writing architect helping develop lab notebook posts.
@@ -189,7 +189,7 @@ Angles:
 ${state.angles}`,
   });
 
-  push({ type: "node_complete", node: "structure" });
+  push({ type: "node_complete", node: "outline" });
   return { structure };
 }
 
@@ -350,14 +350,14 @@ Respond ONLY with valid JSON: { "title": "...", "excerpt": "..." }`,
 const workflow = new StateGraph(FlowStateAnnotation)
   .addNode("analyze", analyzeNode)
   .addNode("brainstorm", brainstormNode)
-  .addNode("structure", structureNode)
+  .addNode("outline", structureNode)
   .addNode("draft", draftNode)
   .addNode("critique", critiqueNode)
   .addNode("finalize", finalizeNode)
   .addEdge(START, "analyze")
   .addEdge("analyze", "brainstorm")
-  .addEdge("brainstorm", "structure")
-  .addEdge("structure", "draft")
+  .addEdge("brainstorm", "outline")
+  .addEdge("outline", "draft")
   .addEdge("draft", "critique")
   .addConditionalEdges("critique", shouldRefine, {
     draft: "draft",
