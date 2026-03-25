@@ -2,7 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { UserButton } from "@neondatabase/auth/react";
 import { ThemeSelector } from "@/components/themes/selector";
+import { Button } from "@/components/ui/button";
+import { authClient } from "@/lib/auth/client";
 import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
@@ -16,6 +19,7 @@ const NAV_LINKS = [
 
 export function SiteNav() {
   const pathname = usePathname();
+  const { data: session, isPending } = authClient.useSession();
 
   return (
     <nav className="flex items-center justify-between py-6 md:py-8">
@@ -43,6 +47,13 @@ export function SiteNav() {
           ))}
         </div>
         <ThemeSelector />
+        {isPending ? null : session?.user ? (
+          <UserButton size="icon" />
+        ) : (
+          <Button variant="outline" size="sm" asChild>
+            <Link href="/auth/sign-in">Sign in</Link>
+          </Button>
+        )}
       </div>
     </nav>
   );

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/lib/auth/server";
 import { db } from "@/lib/db/client";
 import { posts } from "@/lib/posts/schema";
 
@@ -19,6 +20,11 @@ function uniqueSlug(base: string): string {
 
 export async function POST(req: NextRequest) {
   try {
+    const { data: session } = await auth.getSession();
+    if (!session?.user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const body = await req.json();
     const { title, excerpt, content, postType, pillar } = body;
 

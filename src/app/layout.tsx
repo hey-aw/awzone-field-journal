@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { ThemeProvider } from "@/components/themes/provider"
+import { ThemeProvider } from "@/components/themes/provider";
+import { AuthProvider } from "@/components/auth-provider";
 import "./globals.css";
 import { inter } from "./fonts";
 
@@ -26,7 +27,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <AuthProvider>{children}</AuthProvider>
         </ThemeProvider>
       </body>
     </html>

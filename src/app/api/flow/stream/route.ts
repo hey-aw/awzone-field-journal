@@ -1,4 +1,5 @@
 import { NextRequest } from "next/server";
+import { auth } from "@/lib/auth/server";
 import { flowGraph } from "@/lib/flow/graph";
 import type { FlowEvent } from "@/lib/flow/types";
 
@@ -6,6 +7,14 @@ export const runtime = "nodejs";
 export const maxDuration = 300; // 5 min — deep agent takes time
 
 export async function POST(req: NextRequest) {
+  const { data: session } = await auth.getSession();
+  if (!session?.user) {
+    return new Response(JSON.stringify({ error: "Unauthorized" }), {
+      status: 401,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
   const body = await req.json().catch(() => ({}));
   const seed = typeof body.seed === "string" ? body.seed.trim() : "";
 

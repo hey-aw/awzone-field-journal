@@ -4,13 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { ThemeSelector } from "@/components/themes/selector";
 import { Button } from "@/components/ui/button";
-import { useSession, signOut } from "@/lib/auth/client";
+import { authClient } from "@/lib/auth/client";
 
 export function NavBar() {
-  const { data: session, isPending } = useSession();
+  const { data: session, isPending } = authClient.useSession();
 
   const handleSignOut = async () => {
-    await signOut();
+    await authClient.signOut();
   };
 
   return (
@@ -47,7 +47,7 @@ export function NavBar() {
           </Button>
         ) : (
           <Button variant="default" asChild>
-            <Link href="/sign-in">Sign In</Link>
+            <Link href="/auth/sign-in">Sign In</Link>
           </Button>
         )}
       </div>
