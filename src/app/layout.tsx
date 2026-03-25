@@ -5,8 +5,8 @@ import { inter } from "./fonts";
 
 export const metadata: Metadata = {
   title: {
-    default: "AWZone Field Journal",
-    template: "%s — AWZone Field Journal",
+    default: "AWzone",
+    template: "%s — AWzone",
   },
   description:
     "A public notebook for experiments, prototypes, and reflections at the intersection of learning, AI, and product design.",

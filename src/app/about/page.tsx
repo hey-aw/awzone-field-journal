@@ -5,7 +5,7 @@ import { SiteNav } from "@/components/site-nav";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "About Matthew Anthes-Washburn — educator, product builder, and experimenter at the intersection of learning, AI, and product design.",
+    "About Matt \"AW\" Anthes-Washburn — educator, product builder, and experimenter at the intersection of learning, AI, and product design.",
 };
 
 export default function AboutPage() {
@@ -23,7 +23,7 @@ export default function AboutPage() {
 
           <div className="prose prose-sm max-w-none space-y-6 text-sm leading-relaxed">
             <p className="text-base leading-relaxed">
-              I&apos;m Matthew Anthes-Washburn — an educator and product builder
+              I&apos;m Matt &ldquo;AW&rdquo; Anthes-Washburn — an educator and product builder
               working at the intersection of learning, AI, and building useful
               things.
             </p>
