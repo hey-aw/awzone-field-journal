@@ -1,8 +1,8 @@
-import { Inter } from "next/font/google";
+import { IBM_Plex_Sans } from "next/font/google";
 
-export const inter = Inter({
+export const ibmPlexSans = IBM_Plex_Sans({
   weight: ["400", "500", "600"],
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-ibm-plex-sans",
 });
