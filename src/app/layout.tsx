@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/themes/provider"
+import { QuickCapture } from "@/components/quick-capture";
 import "./globals.css";
 import { inter } from "./fonts";
 
@@ -27,6 +28,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <QuickCapture />
         </ThemeProvider>
       </body>
     </html>
