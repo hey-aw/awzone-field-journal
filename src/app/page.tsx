@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SiteNav } from "@/components/site-nav";
+import { StripeBar, STRIPE_COLORS } from "@/components/stripe-bar";
 
 const CONTENT_PILLARS = [
   {
@@ -33,6 +34,8 @@ export default function Home() {
     <div className="flex min-h-screen flex-col">
       <div className="mx-auto w-full max-w-2xl px-6 md:px-8">
         <SiteNav />
+        {/* Full-width stripe banner — like the ribbed hem/cuff stripe on the hoodie */}
+        <StripeBar height={3} className="-mx-6 md:-mx-8 w-[calc(100%+3rem)] md:w-[calc(100%+4rem)]" />
 
         <main className="py-16 md:py-20">
           {/* Hero */}
@@ -43,6 +46,10 @@ export default function Home() {
             <h1 className="mb-5 text-3xl font-semibold leading-tight tracking-tight md:text-4xl">
               Matt &ldquo;AW&rdquo; Anthes-Washburn
             </h1>
+
+            {/* 80s racing-stripe accent — mirrors the horizontal stripe band on the hoodie */}
+            <StripeBar height={10} className="mb-6 rounded-sm" />
+
             <p className="mb-6 text-lg leading-relaxed text-muted-foreground md:text-xl">
               Experiments in AI, learning, product design, and building useful
               things.
@@ -129,18 +136,26 @@ export default function Home() {
               What&apos;s here
             </h2>
             <div className="grid gap-4 sm:grid-cols-2">
-              {CONTENT_PILLARS.map((pillar) => (
+              {CONTENT_PILLARS.map((pillar, i) => (
                 <Link
                   key={pillar.name}
                   href={pillar.href}
-                  className="group rounded-md border border-border bg-card p-5 transition-colors hover:bg-muted"
+                  className="group rounded-md border border-border bg-card overflow-hidden transition-colors hover:bg-muted"
                 >
-                  <p className="mb-2 text-sm font-semibold group-hover:underline">
-                    {pillar.name}
-                  </p>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    {pillar.description}
-                  </p>
+                  {/* Per-card stripe accent — each pillar gets one stripe colour from the 80s band */}
+                  <div
+                    className="h-1.5 w-full"
+                    style={{ backgroundColor: STRIPE_COLORS[i % STRIPE_COLORS.length] }}
+                    aria-hidden
+                  />
+                  <div className="p-5">
+                    <p className="mb-2 text-sm font-semibold group-hover:underline">
+                      {pillar.name}
+                    </p>
+                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      {pillar.description}
+                    </p>
+                  </div>
                 </Link>
               ))}
             </div>
@@ -148,7 +163,10 @@ export default function Home() {
 
           {/* Now teaser */}
           <section>
-            <div className="rounded-md border border-border bg-muted/40 px-6 py-5">
+            <div className="rounded-md border border-border bg-muted/40 overflow-hidden">
+              {/* Stripe top border on the callout — like the cuff accent on the hoodie sleeve */}
+              <StripeBar height={4} />
+              <div className="px-6 py-5">
               <p className="mb-1 text-xs font-medium tracking-widest text-primary uppercase">
                 Currently
               </p>
@@ -161,11 +179,14 @@ export default function Home() {
                   Read the now page →
                 </Link>
               </p>
+              </div>
             </div>
           </section>
         </main>
 
-        <footer className="border-t border-border py-8 text-sm text-muted-foreground">
+        {/* Footer stripe accent — mirrors the bottom hem band on the hoodie */}
+        <StripeBar height={3} className="-mx-6 md:-mx-8 w-[calc(100%+3rem)] md:w-[calc(100%+4rem)] mb-0" />
+        <footer className="py-8 text-sm text-muted-foreground">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <span>Matt &ldquo;AW&rdquo; Anthes-Washburn</span>
             <div className="flex items-center gap-6">
