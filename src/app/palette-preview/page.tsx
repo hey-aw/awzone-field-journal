@@ -1,10 +1,11 @@
 export default function StripePreview() {
-  // The four stripe colors, left to right
+  // Blue dominant · purple narrow · red narrow · orange dominant
+  // flex values approximate the jacket's proportions
   const stripes = [
-    "oklch(0.52 0.22 252)", // blue
-    "oklch(0.52 0.25 285)", // purple
-    "oklch(0.55 0.24 18)",  // red
-    "oklch(0.68 0.20 38)",  // orange
+    { color: "oklch(0.55 0.22 252)", flex: 3   }, // blue
+    { color: "oklch(0.50 0.25 285)", flex: 1.5 }, // purple
+    { color: "oklch(0.55 0.24 18)",  flex: 2   }, // red
+    { color: "oklch(0.72 0.18 50)",  flex: 3   }, // orange
   ]
 
   return (
@@ -12,26 +13,26 @@ export default function StripePreview() {
       <div className="bg-background border-b border-border px-6 py-3 flex items-center gap-3 text-sm">
         <a href="/" className="text-muted-foreground hover:text-foreground transition-colors">← Back</a>
         <span className="text-muted-foreground">·</span>
-        <span className="font-medium">Racing stripe placements</span>
+        <span className="font-medium">Racing stripe — horizontal</span>
       </div>
 
-      <Mock label="Top bar — full width, 4px" stripes={stripes} dark placement="topbar" />
-      <Mock label="Top bar — full width, 4px" stripes={stripes} dark={false} placement="topbar" />
+      <Mock label="Below nav" stripes={stripes} dark placement="below-nav" />
+      <Mock label="Below nav" stripes={stripes} dark={false} placement="below-nav" />
 
-      <Mock label="Hero accent — diagonal sweep" stripes={stripes} dark placement="diagonal" />
-      <Mock label="Hero accent — diagonal sweep" stripes={stripes} dark={false} placement="diagonal" />
+      <Mock label="Hero divider" stripes={stripes} dark placement="hero-divider" />
+      <Mock label="Hero divider" stripes={stripes} dark={false} placement="hero-divider" />
 
-      <Mock label="Left edge — card / section marker" stripes={stripes} dark placement="leftedge" />
-      <Mock label="Left edge — card / section marker" stripes={stripes} dark={false} placement="leftedge" />
+      <Mock label="Page footer" stripes={stripes} dark placement="footer" />
+      <Mock label="Page footer" stripes={stripes} dark={false} placement="footer" />
     </div>
   )
 }
 
-function RacingStripe({ stripes, height = 4 }: { stripes: string[]; height?: number }) {
+function HStripe({ stripes, height = 18 }: { stripes: { color: string; flex: number }[]; height?: number }) {
   return (
     <div className="flex w-full" style={{ height }}>
-      {stripes.map((color, i) => (
-        <div key={i} className="flex-1" style={{ backgroundColor: color }} />
+      {stripes.map((s, i) => (
+        <div key={i} style={{ backgroundColor: s.color, flex: s.flex }} />
       ))}
     </div>
   )
@@ -44,9 +45,9 @@ function Mock({
   placement,
 }: {
   label: string
-  stripes: string[]
+  stripes: { color: string; flex: number }[]
   dark: boolean
-  placement: "topbar" | "diagonal" | "leftedge"
+  placement: "below-nav" | "hero-divider" | "footer"
 }) {
   const bg      = dark ? "oklch(0.12 0.025 262)" : "oklch(0.99 0.005 68)"
   const card    = dark ? "oklch(0.18 0.025 262)" : "oklch(0.96 0.01 68)"
@@ -65,13 +66,10 @@ function Mock({
         <span className="opacity-60">{dark ? "Dark" : "Light"}</span>
       </div>
 
-      {/* Top bar placement */}
-      {placement === "topbar" && <RacingStripe stripes={stripes} height={4} />}
-
       <div className="mx-auto max-w-2xl px-6 md:px-8">
         {/* Nav */}
         <nav className="flex items-center justify-between py-5"
-          style={{ borderBottom: `1px solid ${border}` }}>
+          style={{ borderBottom: placement === "below-nav" ? undefined : `1px solid ${border}` }}>
           <span className="text-sm font-semibold tracking-tight">AWzone</span>
           <div className="flex gap-6 text-xs" style={{ color: muted }}>
             <span style={{ color: primary }}>Notes</span>
@@ -80,18 +78,13 @@ function Mock({
             <span>About</span>
           </div>
         </nav>
+      </div>
 
+      {placement === "below-nav" && <HStripe stripes={stripes} height={18} />}
+
+      <div className="mx-auto max-w-2xl px-6 md:px-8">
         {/* Hero */}
-        <div className="py-14 relative">
-          {/* Diagonal sweep placement */}
-          {placement === "diagonal" && (
-            <div className="absolute right-0 top-8 flex" style={{ height: 120, width: 160, transform: "skewX(-12deg)", gap: 3 }}>
-              {stripes.map((color, i) => (
-                <div key={i} className="flex-1" style={{ backgroundColor: color, opacity: 0.9 }} />
-              ))}
-            </div>
-          )}
-
+        <div className="py-14">
           <p className="mb-3 text-xs font-medium tracking-widest uppercase" style={{ color: primary }}>
             Field Journal
           </p>
@@ -113,20 +106,21 @@ function Mock({
           </div>
         </div>
 
+        {placement === "hero-divider" && (
+          <div className="mb-14">
+            <HStripe stripes={stripes} height={18} />
+          </div>
+        )}
+
         {/* Entry list */}
-        <div className="mb-16 overflow-hidden rounded-md" style={{ border: `1px solid ${border}` }}>
+        <div className="mb-14 overflow-hidden rounded-md" style={{ border: `1px solid ${border}` }}>
           {[
             { label: "Lab note",         title: "Why I'm building this in public" },
             { label: "Experiment",       title: "What I'm experimenting with right now" },
             { label: "Field reflection", title: "A reflection on building for educators" },
           ].map((entry, i) => (
             <div key={i} className="flex items-start justify-between gap-4 px-5 py-4"
-              style={{
-                backgroundColor: card,
-                borderBottom: i < 2 ? `1px solid ${border}` : undefined,
-                // Left edge placement: stripe on the left side of each card
-                borderLeft: placement === "leftedge" ? `3px solid ${stripes[i % stripes.length]}` : undefined,
-              }}>
+              style={{ backgroundColor: card, borderBottom: i < 2 ? `1px solid ${border}` : undefined }}>
               <div>
                 <p className="mb-0.5 text-xs font-medium tracking-wide uppercase" style={{ color: muted }}>
                   {entry.label}
@@ -138,6 +132,11 @@ function Mock({
           ))}
         </div>
       </div>
+
+      {placement === "footer" && <HStripe stripes={stripes} height={18} />}
+
+      {/* Spacer at bottom for footer option */}
+      {placement === "footer" && <div style={{ height: 32 }} />}
     </section>
   )
 }
