@@ -42,7 +42,7 @@ export default function NowPage() {
 
           <div className="space-y-8 text-sm leading-relaxed">
             <section>
-              <h2 className="mb-3 text-sm font-semibold tracking-wide uppercase text-muted-foreground">
+              <h2 className="mb-3 text-sm font-semibold tracking-wide uppercase text-primary">
                 Building
               </h2>
               <div className="space-y-3">
@@ -60,7 +60,7 @@ export default function NowPage() {
             </section>
 
             <section>
-              <h2 className="mb-3 text-sm font-semibold tracking-wide uppercase text-muted-foreground">
+              <h2 className="mb-3 text-sm font-semibold tracking-wide uppercase text-primary">
                 Learning
               </h2>
               <div className="space-y-3">
@@ -77,7 +77,7 @@ export default function NowPage() {
             </section>
 
             <section>
-              <h2 className="mb-3 text-sm font-semibold tracking-wide uppercase text-muted-foreground">
+              <h2 className="mb-3 text-sm font-semibold tracking-wide uppercase text-primary">
                 Thinking about
               </h2>
               <div className="space-y-3">
@@ -94,7 +94,7 @@ export default function NowPage() {
             </section>
 
             <section>
-              <h2 className="mb-3 text-sm font-semibold tracking-wide uppercase text-muted-foreground">
+              <h2 className="mb-3 text-sm font-semibold tracking-wide uppercase text-primary">
                 Not doing
               </h2>
               <p className="text-muted-foreground">

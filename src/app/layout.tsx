@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/themes/provider"
 import "./globals.css";
-import { inter } from "./fonts";
+import { ibmPlexSans } from "./fonts";
 
 export const metadata: Metadata = {
   title: {
@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
+    <html lang="en" className={ibmPlexSans.variable} suppressHydrationWarning>
       <body>
         <ThemeProvider
           attribute="class"
