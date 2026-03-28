@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
-export default function FlowPage() {
+export default function AdminNewPage() {
   redirect("/admin");
 }

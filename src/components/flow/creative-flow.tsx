@@ -123,6 +123,7 @@ export function CreativeFlow() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ seed }),
         signal: controller.signal,
+        credentials: "include",
       });
 
       if (!res.ok) {
@@ -173,6 +174,7 @@ export function CreativeFlow() {
       const res = await fetch("/api/posts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({
           title: finalOutput.title,
           excerpt: finalOutput.excerpt,
