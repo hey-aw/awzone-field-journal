@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db/client";
 import { posts } from "@/lib/posts/schema";
+import { desc, eq } from "drizzle-orm";
 
 function slugify(text: string): string {
   return text
@@ -17,24 +18,53 @@ function uniqueSlug(base: string): string {
   return `${base}-${suffix}`;
 }
 
+export async function GET(req: NextRequest) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const status = searchParams.get("status") ?? "draft";
+
+    const results = await db
+      .select({
+        id: posts.id,
+        title: posts.title,
+        slug: posts.slug,
+        excerpt: posts.excerpt,
+        content: posts.content,
+        type: posts.type,
+        pillar: posts.pillar,
+        status: posts.status,
+        createdAt: posts.createdAt,
+      })
+      .from(posts)
+      .where(eq(posts.status, status as "draft" | "published"))
+      .orderBy(desc(posts.createdAt));
+
+    return NextResponse.json(results);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Failed to fetch posts";
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const { title, excerpt, content, postType, pillar } = body;
 
-    if (!title || !content) {
+    if (!content) {
       return NextResponse.json(
-        { error: "title and content are required" },
+        { error: "content is required" },
         { status: 400 },
       );
     }
 
-    const slug = uniqueSlug(slugify(title));
+    const effectiveTitle = title?.trim() || "Untitled capture";
+    const slug = uniqueSlug(slugify(effectiveTitle));
 
     const [post] = await db
       .insert(posts)
       .values({
-        title,
+        title: effectiveTitle,
         slug,
         excerpt: excerpt ?? null,
         content,
