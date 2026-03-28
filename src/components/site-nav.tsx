@@ -34,7 +34,7 @@ export function SiteNav() {
               className={cn(
                 "px-3 py-1.5 text-sm rounded-md transition-colors",
                 pathname === link.href || pathname?.startsWith(link.href + "/")
-                  ? "text-foreground font-medium"
+                  ? "text-primary font-medium"
                   : "text-muted-foreground hover:text-foreground",
               )}
             >
