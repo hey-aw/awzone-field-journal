@@ -20,12 +20,11 @@ export function StripeBar({ height = 6, className, index }: StripeBarProps) {
   const colors = index !== undefined ? [STRIPE_COLORS[index % STRIPE_COLORS.length]] : STRIPE_COLORS;
   return (
     <div
-      className={cn("flex w-full overflow-hidden", className)}
-      style={{ height: `${height}px` }}
+      className={cn("flex w-full flex-col overflow-hidden", className)}
       aria-hidden
     >
       {colors.map((color) => (
-        <div key={color} className="flex-1" style={{ backgroundColor: color }} />
+        <div key={color} className="w-full" style={{ backgroundColor: color, height: `${height}px` }} />
       ))}
     </div>
   );
