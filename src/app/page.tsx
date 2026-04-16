@@ -38,15 +38,15 @@ export default function Home() {
         <main className="py-16 md:py-20">
           {/* Hero */}
           <section className="mb-16">
+            {/* 80s racing-stripe accent — full-bleed background band, like the chest stripe on the hoodie */}
+            <StripeBar height={18} fullBleed opacity={0.72} className="mb-8" />
+
             <p className="mb-3 text-sm font-medium tracking-widest text-primary uppercase">
               Field Journal
             </p>
             <h1 className="mb-5 text-3xl font-semibold leading-tight tracking-tight md:text-4xl">
               Matt &ldquo;AW&rdquo; Anthes-Washburn
             </h1>
-
-            {/* 80s racing-stripe accent — full-bleed background band, like the chest stripe on the hoodie */}
-            <StripeBar height={18} fullBleed opacity={0.72} className="my-8" />
 
             <p className="mb-6 text-lg leading-relaxed text-muted-foreground md:text-xl">
               Experiments in AI, learning, product design, and building useful
