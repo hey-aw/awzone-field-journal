@@ -2,11 +2,12 @@ import { cn } from "@/lib/utils";
 
 // 80s-style horizontal stripe bar — colours taken from the racing-stripe hoodie palette
 // (royal blue → violet → red → amber, top-to-bottom on the jacket)
+// Slightly desaturated from pure web primaries so they read as vintage rather than neon.
 export const STRIPE_COLORS = [
-  "#2563EB", // royal blue
-  "#7C3AED", // violet
-  "#DC2626", // red
-  "#F59E0B", // amber / gold
+  "#4A82D4", // faded royal blue
+  "#9B6ECC", // dusty violet
+  "#C95252", // vintage red
+  "#D4943A", // warm amber / gold
 ] as const;
 
 interface StripeBarProps {

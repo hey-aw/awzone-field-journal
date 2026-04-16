@@ -34,8 +34,6 @@ export default function Home() {
     <div className="flex min-h-screen flex-col">
       <div className="mx-auto w-full max-w-2xl px-6 md:px-8">
         <SiteNav />
-        {/* Full-width stripe banner — like the ribbed hem/cuff stripe on the hoodie */}
-        <StripeBar height={3} className="-mx-6 md:-mx-8 w-[calc(100%+3rem)] md:w-[calc(100%+4rem)]" />
 
         <main className="py-16 md:py-20">
           {/* Hero */}
@@ -48,7 +46,7 @@ export default function Home() {
             </h1>
 
             {/* 80s racing-stripe accent — mirrors the horizontal stripe band on the hoodie */}
-            <StripeBar height={10} className="mb-6 rounded-sm" />
+            <StripeBar height={7} className="mb-6 rounded-sm" />
 
             <p className="mb-6 text-lg leading-relaxed text-muted-foreground md:text-xl">
               Experiments in AI, learning, product design, and building useful
@@ -163,10 +161,7 @@ export default function Home() {
 
           {/* Now teaser */}
           <section>
-            <div className="rounded-md border border-border bg-muted/40 overflow-hidden">
-              {/* Stripe top border on the callout — like the cuff accent on the hoodie sleeve */}
-              <StripeBar height={4} />
-              <div className="px-6 py-5">
+            <div className="rounded-md border border-border bg-muted/40 px-6 py-5">
               <p className="mb-1 text-xs font-medium tracking-widest text-primary uppercase">
                 Currently
               </p>
@@ -179,14 +174,11 @@ export default function Home() {
                   Read the now page →
                 </Link>
               </p>
-              </div>
             </div>
           </section>
         </main>
 
-        {/* Footer stripe accent — mirrors the bottom hem band on the hoodie */}
-        <StripeBar height={3} className="-mx-6 md:-mx-8 w-[calc(100%+3rem)] md:w-[calc(100%+4rem)] mb-0" />
-        <footer className="py-8 text-sm text-muted-foreground">
+        <footer className="border-t border-border py-8 text-sm text-muted-foreground">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <span>Matt &ldquo;AW&rdquo; Anthes-Washburn</span>
             <div className="flex items-center gap-6">
