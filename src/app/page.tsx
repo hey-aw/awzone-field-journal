@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SiteNav } from "@/components/site-nav";
+import { StripeBar, STRIPE_COLORS } from "@/components/stripe-bar";
 
 const CONTENT_PILLARS = [
   {
@@ -37,12 +38,16 @@ export default function Home() {
         <main className="py-16 md:py-20">
           {/* Hero */}
           <section className="mb-16">
+            {/* 80s racing-stripe accent — full-bleed background band, like the chest stripe on the hoodie */}
+            <StripeBar height={18} fullBleed opacity={0.72} className="mb-8" />
+
             <p className="mb-3 text-sm font-medium tracking-widest text-primary uppercase">
               Field Journal
             </p>
             <h1 className="mb-5 text-3xl font-semibold leading-tight tracking-tight md:text-4xl">
               Matt &ldquo;AW&rdquo; Anthes-Washburn
             </h1>
+
             <p className="mb-6 text-lg leading-relaxed text-muted-foreground md:text-xl">
               Experiments in AI, learning, product design, and building useful
               things.
@@ -129,18 +134,26 @@ export default function Home() {
               What&apos;s here
             </h2>
             <div className="grid gap-4 sm:grid-cols-2">
-              {CONTENT_PILLARS.map((pillar) => (
+              {CONTENT_PILLARS.map((pillar, i) => (
                 <Link
                   key={pillar.name}
                   href={pillar.href}
-                  className="group rounded-md border border-border bg-card p-5 transition-colors hover:bg-muted"
+                  className="group rounded-md border border-border bg-card overflow-hidden transition-colors hover:bg-muted"
                 >
-                  <p className="mb-2 text-sm font-semibold group-hover:underline">
-                    {pillar.name}
-                  </p>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    {pillar.description}
-                  </p>
+                  {/* Per-card stripe accent — each pillar gets one stripe colour from the 80s band */}
+                  <div
+                    className="h-1.5 w-full"
+                    style={{ backgroundColor: STRIPE_COLORS[i % STRIPE_COLORS.length] }}
+                    aria-hidden
+                  />
+                  <div className="p-5">
+                    <p className="mb-2 text-sm font-semibold group-hover:underline">
+                      {pillar.name}
+                    </p>
+                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      {pillar.description}
+                    </p>
+                  </div>
                 </Link>
               ))}
             </div>
