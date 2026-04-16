@@ -15,17 +15,27 @@ interface StripeBarProps {
   className?: string;
   /** If provided, renders only the stripe at that index (0–3) */
   index?: number;
+  /** Break out of any max-width container to span the full viewport width */
+  fullBleed?: boolean;
+  /** 0–1 opacity, useful for background-accent usage */
+  opacity?: number;
 }
 
-export function StripeBar({ height = 6, className, index }: StripeBarProps) {
+export function StripeBar({ height = 6, className, index, fullBleed, opacity = 1 }: StripeBarProps) {
   const colors = index !== undefined ? [STRIPE_COLORS[index % STRIPE_COLORS.length]] : STRIPE_COLORS;
   return (
     <div
-      className={cn("flex w-full flex-col overflow-hidden", className)}
+      className={cn("flex flex-col overflow-hidden", className)}
+      style={{
+        opacity,
+        ...(fullBleed
+          ? { width: "100vw", marginLeft: "calc(50% - 50vw)" }
+          : { width: "100%" }),
+      }}
       aria-hidden
     >
       {colors.map((color) => (
-        <div key={color} className="w-full" style={{ backgroundColor: color, height: `${height}px` }} />
+        <div key={color} style={{ backgroundColor: color, height: `${height}px` }} />
       ))}
     </div>
   );

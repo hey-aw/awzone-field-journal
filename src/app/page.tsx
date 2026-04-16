@@ -45,8 +45,8 @@ export default function Home() {
               Matt &ldquo;AW&rdquo; Anthes-Washburn
             </h1>
 
-            {/* 80s racing-stripe accent — mirrors the horizontal stripe band on the hoodie */}
-            <StripeBar height={7} className="mb-6 rounded-sm" />
+            {/* 80s racing-stripe accent — full-bleed background band, like the chest stripe on the hoodie */}
+            <StripeBar height={18} fullBleed opacity={0.72} className="my-8" />
 
             <p className="mb-6 text-lg leading-relaxed text-muted-foreground md:text-xl">
               Experiments in AI, learning, product design, and building useful
